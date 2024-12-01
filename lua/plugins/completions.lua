@@ -33,12 +33,25 @@ return {
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
         }),
         sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "luasnip" }, -- For luasnip users.
-        }, {
-          { name = "buffer" },
+          { name = "nvim_lsp" },  -- LSP suggestions (like function signatures, etc.)
+          { name = "luasnip" },   -- Snippet suggestions (if you use snippets)
+          { name = "buffer" },    -- Buffer-based suggestions (for words already in the file)
+          { name = "path" },      -- Path-based suggestions (for file paths)
         }),
       })
     end,
   },
+  {
+    "hrsh7th/cmp-buffer",  -- Buffer source for nvim-cmp
+    config = function()
+      -- Buffer source configuration (already covered above)
+    end,
+  },
+  {
+    "hrsh7th/cmp-path",  -- Path source for nvim-cmp
+    config = function()
+      -- Path source configuration (already covered above)
+    end,
+  },
 }
+

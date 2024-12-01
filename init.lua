@@ -17,6 +17,24 @@ vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>')
 vim.wo.number = true
 vim.wo.relativenumber = true
 
+vim.api.nvim_set_keymap('n', '<C-a>', 'ggVG', { noremap = true, silent = true })
+
+-- Move line down with Alt + j
+vim.api.nvim_set_keymap('n', '<A-j>', ':m .+1<CR>==', { noremap = true, silent = true })
+
+-- Move line up with Alt + k
+vim.api.nvim_set_keymap('n', '<A-k>', ':m .-2<CR>==', { noremap = true, silent = true })
+
+-- Move visual selection down with Alt + j
+vim.api.nvim_set_keymap('v', '<A-j>', ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
+
+-- Move visual selection up with Alt + k
+vim.api.nvim_set_keymap('v', '<A-k>', ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+
+-- Map Ctrl+Backspace to delete the previous word in insert mode
+-- Map Ctrl+Backspace to delete the entire word in insert mode
+vim.api.nvim_set_keymap('i', '<C-BS>', '<C-W>', { noremap = true, silent = true })
+
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -33,3 +51,4 @@ vim.opt.rtp:prepend(lazypath)
 
 
 require("lazy").setup("plugins")
+
