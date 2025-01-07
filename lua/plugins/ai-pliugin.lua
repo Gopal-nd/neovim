@@ -1,43 +1,51 @@
 return {
-    "Exafunction/codeium.nvim",
+    "windwp/nvim-autopairs",
     config = function()
+        local codeium_enabled = true
+
+
+       local function toggle_codeium()
+            if codeium_enabled then
+                codeium_enabled = false
+                vim.cmd("Codeium Disable")
+                vim.notify("Codeium is now disabled", vim.log.levels.INFO)
+            else
+                codeium_enabled = true
+                vim.cmd("Codeium Enable")
+                vim.notify("Codeium is now enabled", vim.log.levels.INFO)
+            end
+        end
+
+        -- Load and configure Codeium
         local codeium = require("codeium")
-        -- Setup Codeium
-        -- codeium.setup({
-        --     -- Enable virtual text for completions
-        --     virtual_text = {
-        --         enabled = true,
-        --         filetypes = { 
-        --             python = true,  -- Enable virtual text for Python files
-        --             lua = true,     -- Enable virtual text for Lua files
-        --         },
-        --         default_filetype_enabled = true,  -- Enable virtual text by default for other filetypes
-        --         idle_delay = 75,  -- Time in ms to wait before requesting completions after typing stops
-        --         virtual_text_priority = 65535,  -- Priority of virtual text
-        --         map_keys = true,  -- Enable key mappings for virtual text actions
-        --         key_bindings = {
-        --             accept = "<Tab>",    -- Accept current completion with Tab
-        --             next = "<M-]>",      -- Go to the next completion suggestion
-        --             prev = "<M-[>",      -- Go to the previous completion suggestion
-        --             clear = "<C-l>",     -- Clear the virtual text
-        --         },
-        --     },
-        --     -- Enable the CMP source for Codeium (if using nvim-cmp)
-        --     enable_cmp_source = true,
-        -- })
+        codeium.setup({
+            virtual_text = {
+                enabled = true,
+                filetypes = {
+                    python = true,
+                    lua = true,
+                },
+                default_filetype_enabled = true,
+                idle_delay = 75,
+                virtual_text_priority = 65535,
+                map_keys = true,
+                key_bindings = {
+                    accept = "<Tab>",
+                    next = "<M-]>",
+                    prev = "<M-[>",
+                    clear = "<C-l>",
+                },
+            },
+            enable_cmp_source = true,
+        })
 
-        -- -- Create command to disable Codeium
-        -- vim.api.nvim_create_user_command("DisableCodeium", function()
-        --     vim.cmd("Codeium Disable")
-        --     vim.notify("Codeium is now disabled", vim.log.levels.INFO)
-        -- end, {})
-
-        -- -- Add keybinding to disable Codeium
-        -- vim.api.nvim_set_keymap(
-        --     "n",
-        --     "<leader>cd",
-        --     ":DisableCodeium<CR>",
-        --     { noremap = true, silent = true }
-        -- )
-    end
+        -- Add a keymap to toggle Codeium
+        vim.api.nvim_set_keymap(
+            "n",
+            "<leader>ct", -- Replace with your preferred key combination
+            ":lua toggle_codeium()<CR>",
+            { noremap = true, silent = true }
+        )
+    end,
 }
+

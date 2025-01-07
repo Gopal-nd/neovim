@@ -85,7 +85,7 @@ return {
               },
               filtered_items = {
                   hide_dotfiles = false,   -- Show dotfiles in the file explorer
-                  hide_gitignored = true,  -- Hide files ignored by git
+                  hide_gitignored = false,  -- Hide files ignored by git
               },
               use_libuv_file_watcher = true,  -- Use libuv to watch for file changes
           },

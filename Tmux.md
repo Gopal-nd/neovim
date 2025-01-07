@@ -36,7 +36,7 @@ brew install tmux
   ```
 - Attach to a detached session:
   ```bash
-  tmux attach
+  tmux attach -t <number>
   ```
 - List sessions:
   ```bash
@@ -204,4 +204,4 @@ Run the script:
 
 Happy multiplexing!
 
-
+this is cool 
